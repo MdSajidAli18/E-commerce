@@ -2,17 +2,19 @@ import React, { useState } from 'react';
 import loginIcons from '../assets/assest/signin.gif';
 import { LuEye } from "react-icons/lu";
 import { LuEyeOff } from "react-icons/lu";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import imageToBase64 from '../helpers/imageToBase64';
+import SummaryApi from '../common';
+import { toast } from 'react-toastify';
 
 const SignUp = () => {
 
     //s
-    const [showPassword, setShowPassword] = useState(false);
+    const [showPassword, setShowPassword] = useState(false)
     //p
 
     //s
-    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false)
     //p
 
 
@@ -23,34 +25,62 @@ const SignUp = () => {
         password: "",
         confirmPassword: "",
         profilePic: ""
-    });
+    })
+
+    const navigate = useNavigate()
 
     const handleOnChange = (e) => {
-        const {name, value} = e.target;
+        const {name, value} = e.target
         setData((prev)=>{
             return{
                 ...prev,
                 [name] : value
             }
-        });
-    };
+        })
+    }
 
     console.log("signup data", data);
 
     const handleUploadPic = async(e) => {
-        const file = e.target.files[0];
-        const imagePic = await imageToBase64(file);
+        const file = e.target.files[0]
+        const imagePic = await imageToBase64(file)
         setData((prev) => {
             return{
                 ...prev,
                 profilePic: imagePic
-            };
-        });
-    };
+            }
+        })
+    }
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-    };
+    const handleSubmit = async(e) => {
+        e.preventDefault()
+
+        if(data.password === data.confirmPassword) {
+
+            const dataResponse = await fetch(SummaryApi.signUp.url, {
+                method: SummaryApi.signUp.method,
+                headers: {
+                    "content-type": "application/json"
+                },
+                body: JSON.stringify(data)
+            })
+    
+            const dataApi = await dataResponse.json()
+
+            if(dataApi.success) {
+                toast.success(dataApi.message)
+                navigate("/login");
+            }
+
+            if(dataApi.error) {
+                toast.error(dataApi.message)
+            }
+                
+        }else {
+            console.log("Please check your password and confirm password again")
+        }
+        
+    }
     //p
 
 

@@ -5,8 +5,40 @@ import { GrSearch } from "react-icons/gr";
 import { LuUserCircle2 } from "react-icons/lu";
 import { PiShoppingCartLight } from "react-icons/pi";
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
+import SummaryApi from '../common';
+import { setUserDetails } from '../store/userSlice'
+
 
 const Header = () => {
+
+  const user = useSelector(state => state?.user?.user)
+  console.log("user header", user);
+
+  const dispatch = useDispatch()
+
+  const handleLogout = async() => {
+
+    const fetchData = await fetch(SummaryApi.logout_user.url,{
+      method : SummaryApi.logout_user.method,
+      credentials : 'include'
+    })
+
+    const data = await fetchData.json()
+
+    if(data.success){
+      toast.success(data.message)
+      dispatch(setUserDetails(null))
+      // navigate("/")
+    }
+
+    if(data.error){
+      toast.error(data.message)
+    }
+
+  }
+
   return (
 
     <header className='h-16 shadow-md bg-white'>
@@ -29,7 +61,15 @@ const Header = () => {
         <div className='flex items-center gap-7'>
 
           <div className='text-3xl cursor-pointer'>
-           <LuUserCircle2 />
+            {
+              user?.profilePic? (
+                <img src={user?.profilePic} className='w-10 h-10 rounded-full' alt={user?.name}/>
+              )
+              :
+              (
+                <LuUserCircle2 />
+              )
+            }
           </div>
 
           <div className='text-3xl relative'>
@@ -43,7 +83,15 @@ const Header = () => {
           </div>
 
           <div>
-            <Link to={"/login"} className='px-3 py-1 rounded-full text-white bg-red-600 hover:bg-red-700'>Login</Link>
+            {
+              user?._id  ? (
+                <button onClick={handleLogout} className='px-3 py-1 rounded-full text-white bg-red-600 hover:bg-red-700'>Logout</button>
+              )
+              : (
+              <Link to={"/login"} className='px-3 py-1 rounded-full text-white bg-red-600 hover:bg-red-700'>Login</Link>
+              )
+            }
+                    
           </div>
 
         </div>

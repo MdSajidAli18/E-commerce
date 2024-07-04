@@ -1,8 +1,11 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import loginIcons from '../assets/assest/signin.gif';
 import { LuEye } from "react-icons/lu";
 import { LuEyeOff } from "react-icons/lu";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import SummaryApi from '../common';
+import Context from '../context';
 
 const Login = () => {
 
@@ -15,22 +18,48 @@ const Login = () => {
     const [data, setData] = useState({
         email: "",
         password: ""
-    });
+    })
+
+    const navigate = useNavigate()
+
+    const {fetchUserDetails} = useContext(Context)
+
 
     const handleOnChange = (e) => {
-        const {name, value} = e.target;
+        const {name, value} = e.target
         setData((prev)=>{
             return{
                 ...prev,
                 [name] : value
             }
-        });
-    };
+        })
+    }
 
-    console.log("login data", data);
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
+    const handleSubmit = async(e) => {
+        e.preventDefault()
+
+        const dataResponse = await fetch(SummaryApi.signIn.url, {
+            method: SummaryApi.signIn.method,
+            credentials: 'include',
+            headers: {
+                "content-type": "application/json"
+            },
+            body: JSON.stringify(data)
+        })
+
+        const dataApi = await dataResponse.json()
+
+        if(dataApi.success) {
+            toast.success(dataApi.message);
+            navigate("/");
+            fetchUserDetails();
+        };
+
+        if(dataApi.error) {
+            toast.error(dataApi.message);
+        };
+
     };
     //p
 

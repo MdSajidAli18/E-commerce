@@ -1,4 +1,4 @@
-import logo from './logo.svg';
+// import logo from './logo.svg';
 import './App.css';
 import { Outlet } from 'react-router-dom';
 import Header from './components/Header';
@@ -33,7 +33,7 @@ function App() {
   }
 
   useEffect(()=>{
-    fetchUserDetails();
+    fetchUserDetails()
   }, [])
 
 

@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import SummaryApi from '../common';
 import { setUserDetails } from '../store/userSlice'
+import ROLE from '../common/role';
 
 
 const Header = () => {
@@ -64,23 +65,33 @@ const Header = () => {
 
           <div className='relative flex justify-center'>
 
-            <div className='text-3xl cursor-pointer relative flex justify-center' onClick={()=> setMenuDisplay(prev=> !prev)}>
-              {
-                user?.profilePic? (
-                  <img src={user?.profilePic} className='w-10 h-10 rounded-full' alt={user?.name}/>
-                )
-                :
-                (
-                  <LuUserCircle2 />
-                )
-              }
-            </div>
+            {
+              user?._id && (
+                
+                <div className='text-3xl cursor-pointer relative flex justify-center' onClick={()=> setMenuDisplay(prev=> !prev)}>
+                  {
+                    user?.profilePic? (
+                      <img src={user?.profilePic} className='w-10 h-10 rounded-full' alt={user?.name}/>
+                    )
+                    :
+                    (
+                      <LuUserCircle2 />
+                    )
+                  }
+              </div>
+              )
+            }
+
 
             {
               menuDisplay && (
                 <div className='absolute bg-white bottom-0 top-11 h-fit p-2 shadow-lg rounded'>
                 <nav>
-                  <Link to={"admin-panel"} className='whitespace-nowrap hidden md:block hover:bg-slate-100 p-2'  onClick={()=> setMenuDisplay(prev=> !prev)}>Admin Panel</Link>
+                  {
+                    user?.role === ROLE.ADMIN && (
+                      <Link to={"/admin-panel/all-products"} className='whitespace-nowrap hidden md:block hover:bg-slate-100 p-2'  onClick={()=> setMenuDisplay(prev=> !prev)}>Admin Panel</Link>
+                    )
+                  }
                 </nav>
               </div>
               )

@@ -240,6 +240,7 @@ const UploadProduct = ({
                         rows={3}  
                         onChange={handleOnChange}
                         name='description'
+                        value={data.description}
                     ></textarea>
 
 

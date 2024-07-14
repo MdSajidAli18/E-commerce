@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import Logo from './Logo';
 
 import { GrSearch } from "react-icons/gr";
@@ -10,6 +10,7 @@ import { toast } from 'react-toastify';
 import SummaryApi from '../common';
 import { setUserDetails } from '../store/userSlice'
 import ROLE from '../common/role';
+import Context from '../context';
 
 
 const Header = () => {
@@ -20,6 +21,10 @@ const Header = () => {
   const dispatch = useDispatch()
 
   const [menuDisplay, setMenuDisplay] = useState(false)
+
+  const context = useContext(Context)
+
+
 
   const handleLogout = async() => {
 
@@ -41,6 +46,10 @@ const Header = () => {
     }
 
   }
+
+  console.log("Header Cart Count", context);
+
+
 
   return (
 
@@ -99,16 +108,19 @@ const Header = () => {
 
           </div>
 
+          {
+            user?._id && (
+              <div className='text-3xl relative'>
 
-          <div className='text-3xl relative'>
-
-            <span><PiShoppingCartLight /></span>
-
-            <div className='bg-red-600 text-white w-4 h-4 rounded-full p-1 flex items-center justify-center absolute -top-1 -right-2'>
-              <p className='text-sm'>0</p>
-            </div>
-
-          </div>
+                <span><PiShoppingCartLight /></span>
+    
+                <div className='bg-red-600 text-white w-4 h-4 rounded-full p-1 flex items-center justify-center absolute -top-1 -right-2'>
+                  <p className='text-sm'>{context?.cartProductCountt}</p>
+                </div>
+  
+              </div>
+            )
+          }   
 
           <div>
             {

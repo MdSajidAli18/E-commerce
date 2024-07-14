@@ -6,7 +6,7 @@ import Footer from './components/Footer';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import SummaryApi from './common';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Context from './context';
 import { useDispatch } from 'react-redux';
 import { setUserDetails } from './store/userSlice';
@@ -14,6 +14,8 @@ import { setUserDetails } from './store/userSlice';
 function App() {
 
   const dispatch = useDispatch()
+
+  const [cartProductCountt, setCartProductCountt] = useState(0)  // Intentionally I have given the one extra 't' for the naming.
 
   const fetchUserDetails = async()=>{
 
@@ -32,18 +34,38 @@ function App() {
 
   }
 
+  const fetchUserCart = async()=>{
+
+    const dataResponse = await fetch(SummaryApi.cartProductCount.url, {
+      method: SummaryApi.cartProductCount.method,
+      credentials: 'include'
+    }) 
+
+    const dataApi = await dataResponse.json()
+
+    console.log("dataApiiiiiii", dataApi);
+
+    setCartProductCountt(dataApi?.data?.count)
+
+  }
+
   useEffect(()=>{
     fetchUserDetails()
+    fetchUserCart()
   }, [])
 
 
   return (
     <>
       <Context.Provider value={{
-        fetchUserDetails
+        fetchUserDetails,
+        cartProductCountt,
+        fetchUserCart
       }}>
 
-        <ToastContainer />
+        <ToastContainer
+          position='top-center'
+        />
         
         <Header/>
 

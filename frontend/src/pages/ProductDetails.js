@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import SummaryApi from '../common'
 import { FaStar } from "react-icons/fa";
 import { FaRegStarHalfStroke } from "react-icons/fa6";
 import displayINRCurrency from '../helpers/displayCurrency';
+import VerticalCardProduct from '../components/VerticalCardProduct';
+import CategoryWiseProductDisplay from '../components/CategoryWiseProductDisplay';
 
 
 const ProductDetails = () => {
@@ -19,9 +21,15 @@ const ProductDetails = () => {
   })
 
   const params = useParams()
+
   const [loading, setLoading] = useState(true)
   const productImageListLoading = new Array(4).fill(null)
+
   const [activeImage, setActiveImage] = useState("")
+
+  const [zoomImageCoordinate, setZoomImageCoordinate] = useState({x: 0, y: 0})
+
+  const [zoomImage, setZoomImage] = useState(false)
 
   console.log("Producttt Id", params);
 
@@ -63,6 +71,25 @@ const ProductDetails = () => {
   }
 
 
+  const handleZoomImage = useCallback((e)=>{
+
+    setZoomImage(true)
+
+    const {left, top, width, height} = e.target.getBoundingClientRect()
+    console.log("Coordinates", left, top, width, height);
+
+    const x = (e.clientX - left)/width
+    const y = (e.clientY - top)/height
+
+    setZoomImageCoordinate({x, y})
+
+  }, [zoomImageCoordinate])
+
+  const handleLeaveImageZoom = ()=>{
+    setZoomImage(false)
+  }
+
+
 
 
   return (
@@ -74,8 +101,28 @@ const ProductDetails = () => {
         {/** Product Image */}
         <div className='h-96 flex flex-col lg:flex-row-reverse gap-4'>
 
-          <div className='h-[300px] w-[300px] lg:h-96 lg:w-96 bg-slate-200'>
-            <img src={activeImage}  className='h-full w-full object-scale-down mix-blend-multiply'/>
+          <div className='h-[300px] w-[300px] lg:h-96 lg:w-96 bg-slate-200 relative p-2'>
+
+            <img src={activeImage}  className='h-full w-full object-scale-down mix-blend-multiply'  onMouseMove={handleZoomImage}  onMouseLeave={handleLeaveImageZoom}/>
+
+            {/** The product image zooms in on hovering. */}
+            {
+              zoomImage && (
+                <div className='hidden lg:block absolute min-w-[500px] min-h-[500px] bg-slate-200 p-1 -right-[510px] top-0 bottom-0 overflow-hidden'>
+                  <div
+                    className='w-full h-full min-h-[400px] min-w-[400px] mix-blend-multiply scale-150'
+                    style={{
+                      backgroundImage: `url(${activeImage})`,
+                      backgroundRepeat: 'no-repeat',
+                      backgroundPosition: `${zoomImageCoordinate.x*100}% ${zoomImageCoordinate.y*100}%`
+                    }}
+                    >
+                    
+                  </div>
+              </div>
+              )
+            }
+
           </div>
 
           <div className='h-full'>
@@ -172,6 +219,14 @@ const ProductDetails = () => {
 
 
       </div>
+
+
+      {/** Display similar products at the bottom of the page. */}
+      {
+        data?.category && (
+          <CategoryWiseProductDisplay category={data?.category} heading={"Similar products"}/>
+        )
+      }
 
     </div>
   )

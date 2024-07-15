@@ -110,25 +110,25 @@ const Header = () => {
 
           {
             user?._id && (
-              <div className='text-3xl relative'>
+              <Link to={"/cart"} className='text-3xl relative'>
 
                 <span><PiShoppingCartLight /></span>
     
-                <div className='bg-red-600 text-white w-4 h-4 rounded-full p-1 flex items-center justify-center absolute -top-1 -right-2'>
+                <div className='bg-red-600 text-white  w-4 h-4 rounded-full p-1 flex items-center justify-center absolute -top-1 -right-2'>
                   <p className='text-sm'>{context?.cartProductCountt}</p>
                 </div>
   
-              </div>
+              </Link>
             )
           }   
 
           <div>
             {
               user?._id  ? (
-                <button onClick={handleLogout} className='px-3 py-1 rounded-full text-white bg-red-600 hover:bg-red-700'>Logout</button>
+                <button onClick={handleLogout} className='px-3 py-1 rounded-md font-semibold text-white bg-red-600 hover:bg-red-700'>Logout</button>
               )
               : (
-              <Link to={"/login"} className='px-3 py-1 rounded-full text-white bg-red-600 hover:bg-red-700'>Login</Link>
+              <Link to={"/login"} className='px-3.5 py-1 rounded-md font-semibold text-white bg-red-600 hover:bg-red-700'>Login</Link>
               )
             }
                     

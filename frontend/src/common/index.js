@@ -57,6 +57,18 @@ const SummaryApi = {
     cartProductCount: {
         url: `${backendDomain}/api/countCartProduct`,
         method: "get"
+    },
+    cartProductView: {
+        url: `${backendDomain}/api/view-cart-product`,
+        method: "get"
+    },
+    updateCartProductt: {
+        url: `${backendDomain}/api/update-cart-product`,
+        method: "post"
+    },
+    deleteCartProductt: {
+        url: `${backendDomain}/api/delete-cart-product`,
+        method: "post"
     }
 
 

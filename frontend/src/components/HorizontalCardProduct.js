@@ -95,7 +95,7 @@ const HorizontalCardProduct = ({category, heading}) => {
                                             <p className='text-slate-500 line-through'>{displayINRCurrency(product?.price)}</p>
                                             <p className='text-red-600 font-medium'>{ displayINRCurrency(product?.sellingPrice)}</p>
                                         </div>
-                                        <button className='text-sm bg-red-600 hover:bg-red-700 text-white px-3 py-1 my-2 rounded-full'  onClick={ (e)=>handleAddToCart(e, product?._id) }>Add to Cart</button>
+                                        <button className='text-sm font-semibold bg-red-600 hover:bg-red-700 text-white px-3 py-1 my-2 rounded-lg'  onClick={ (e)=>handleAddToCart(e, product?._id) }>Add to Cart</button>
                                     </div>
     
                                 </Link>

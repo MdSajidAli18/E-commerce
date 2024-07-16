@@ -5,6 +5,7 @@ import displayINRCurrency from '../helpers/displayCurrency'
 import { FaStar } from 'react-icons/fa'
 import { FaRegStarHalfStroke } from 'react-icons/fa6'
 import { MdDelete } from "react-icons/md";
+import { BsArrowDown } from "react-icons/bs";
 
 const Cart = () => {
 
@@ -181,9 +182,17 @@ const Cart = () => {
                                                 <span>{product?.quantity}</span>
                                                 <button className=' border-2 font-semibold border-red-600 text-red-600 hover:bg-red-600 hover:text-white w-5 h-5 flex justify-center items-center rounded'  onClick={ ()=>increaseQty(product?._id, product?.quantity) }>+</button>
                                             </div>
-                                            <div className='flex flex-row gap-2 mt-1 mb-0.5'>
-                                                <p className='font-semibold'>{displayINRCurrency(product?.productId?.sellingPrice)}</p>
-                                                <p className='line-through text-slate-600 text-sm mt-0.5'>{displayINRCurrency(product?.productId?.price)}</p>
+                                            <div className='flex flex-row gap-2 mt-1 mb-0.5'>                                               
+                                                <p className='line-through text-slate-600 text-sm mt-0.5'>{displayINRCurrency(product?.productId?.price * product?.quantity)}</p>
+                                                <p className='font-semibold'>{displayINRCurrency(product?.productId?.sellingPrice * product?.quantity)}</p>
+                                                <div className='flex flex-row font-semibold text-lg text-green-700 p-0 m-0'>
+                                                    <BsArrowDown className='mt-1'/>
+                                                    <p className='pb-2 mb-2'>{Math.round(((product?.productId?.price - product?.productId?.sellingPrice)/product?.productId?.price)*100)+'%'}</p>
+                                                </div>
+                                            </div>
+                                            <div className='flew flex-row gap-1'>
+                                                
+                                                
                                             </div>
                                         </div>
 

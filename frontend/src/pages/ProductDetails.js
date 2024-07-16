@@ -206,6 +206,10 @@ const ProductDetails = () => {
               <div className='flex items-center gap-2 my-1'>
                 <p className='text-2xl lg:text-3xl font-medium'>{displayINRCurrency(data?.sellingPrice)}</p>
                 <p className='text-slate-500 lg:text-lg line-through'>{displayINRCurrency(data?.price)}</p>
+                <div className='flex flex-row font-medium text-green-700'>
+                <p className=' ml-1'>{Math.round(((data?.price - data?.sellingPrice)/data?.price)*100)+'%'}</p>                                 
+                <p className='ml-1'>Off</p>
+                </div>
               </div>
 
               <div className='flex items-center gap-3 my-2'>

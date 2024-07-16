@@ -75,9 +75,15 @@ const CategoryWiseProductDisplay = ({category, heading}) => {
                                     <div className='p-4 grid gap-2'>
                                         <h2 className='font-medium text-base md:text-lg text-ellipsis line-clamp-1 text-black'>{product?.productName}</h2>
                                         <p className=' capitalize text-slate-700'>{product?.category}</p>
-                                        <div className='flex gap-3'>
-                                            <p className='text-slate-500 line-through'>{displayINRCurrency(product?.price)}</p>
-                                            <p className='text-red-600 font-medium'>{ displayINRCurrency(product?.sellingPrice)}</p>
+                                        <div className='flex gap-3'>                                            
+                                            <p className='text-red-600 font-medium mt-0.5'>{ displayINRCurrency(product?.sellingPrice)}</p>
+                                            <p className='text-slate-500 line-through mt-0.5'>{displayINRCurrency(product?.price)}</p>
+                                            <div className='flex flex-row font-medium md:text-lg text-green-700 mb-2 pb-2'>
+                                                
+                                                <p className='pb-2 mb-2'>{Math.round(((product?.price - product?.sellingPrice)/product?.price)*100)+'%'}</p>
+                                                {/* <BsArrowDown className='mt-1'/> */}
+                                                <p className='ml-1'>Off</p>
+                                            </div>
                                         </div>
                                         <button className='text-sm bg-red-600 hover:bg-red-700 font-semibold text-white px-6 py-2 mx-3 my-3 rounded-md'  onClick={ (e)=>handleAddToCart(e, product?._id) }>Add to Cart</button>
                                     </div>

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import SummaryApi from '../common';
 import noResultFoundImage from '../assets/noResultFoundImage.jpg'
+import Verticalcardd from '../components/Verticalcardd';
 
 const SearchProduct = () => {
 
@@ -40,7 +41,9 @@ const SearchProduct = () => {
         )
       }
 
-      <p className='font-semibold text-lg'>Search Results : {data.length}</p>
+
+      <p className='font-semibold text-lg my-3'>Search Results : {data.length}</p>
+
 
       {
         !loading && data.length === 0 && (
@@ -52,6 +55,14 @@ const SearchProduct = () => {
           </div>
         )
       }
+
+
+      {
+        data.length !== 0 && !loading && (
+          <Verticalcardd loading={loading}  data={data}/>
+        )
+      }
+
 
     </div>
   )

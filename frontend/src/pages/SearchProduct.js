@@ -48,11 +48,12 @@ const SearchProduct = () => {
       {
         !loading && data.length === 0 && (
           
-          <div className='bg-white text-center p-40 gap-3 flex flex-col items-center justify-center w-full'>
-            <img src={noResultFoundImage} className=' w-60 h-60'/>
-            <p className=' text-3xl font-semibold'>Sorry, no results found!</p>
-            <p className='text-2xl text-ellipsis text-gray-500'>Please check the spelling or try searching for something else</p>
+          <div className="bg-white text-center p-6 mb-10 gap-3 flex flex-col items-center justify-center h-60 sm:h-80 md:h-96 lg:h-120">
+            <img src={noResultFoundImage} className="w-16 h-16 sm:w-24 sm:h-24 md:w-48 md:h-48 lg:w-60 lg:h-60" />
+            <p className="text-sm sm:text-lg md:text-xl lg:text-3xl font-semibold">Sorry, no results found!</p>
+            <p className="text-xs sm:text-sm md:text-lg lg:text-2xl text-ellipsis text-gray-500">Please check the spelling or try searching for something else</p>
           </div>
+
         )
       }
 

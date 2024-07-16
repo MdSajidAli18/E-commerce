@@ -129,7 +129,7 @@ const Header = () => {
                 <span><PiShoppingCartLight /></span>
     
                 <div className='bg-red-600 text-white  w-4 h-4 rounded-full p-1 flex items-center justify-center absolute -top-1 -right-2'>
-                  <p className='text-sm'>{context?.cartProductCountt}</p>
+                  <p className='text-xs'>{context?.cartProductCountt}</p>
                 </div>
   
               </Link>

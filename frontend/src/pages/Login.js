@@ -82,7 +82,7 @@ const Login = () => {
                     <form className='pt-6 flex flex-col gap-2' onSubmit={handleSubmit}>
 
                         <div className='grid'>
-                            <label >Email : </label>
+                            <label className='font-semibold'>Email : </label>
                             <div className='bg-slate-100 p-2'>
                                 <input 
                                     type="email"
@@ -96,7 +96,7 @@ const Login = () => {
                         </div>
 
                         <div>
-                            <label >Password : </label>
+                            <label className='font-semibold'>Password : </label>
                             <div className='bg-slate-100 p-2 flex'>
                                 <input 
                                     type={showPassword? "text" : "password"} 
@@ -120,7 +120,7 @@ const Login = () => {
                                     </span>
                                 </div>
                             </div>
-                            <Link to={"/forgot-password"}  className='block w-fit ml-auto hover:underline hover:text-red-600'>
+                            <Link to={"/forgot-password"}  className='block w-fit ml-auto hover:underline hover:text-red-600 font-semibold'>
                                 Forgot password?
                             </Link>
                         </div>
@@ -130,7 +130,7 @@ const Login = () => {
 
                     </form>
 
-                    <p className='my-5'>Don't have an account? <Link to={"/sign-up"}  className='text-red-600 hover:text-red-700 hover:underline'>Sign up</Link></p>
+                    <p className='my-5 font-semibold'>Don't have an account? <Link to={"/sign-up"}  className='text-red-600 hover:text-red-700 hover:underline'>Sign up</Link></p>
 
                 </div>
 

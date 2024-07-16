@@ -82,20 +82,29 @@ const HorizontalCardProduct = ({category, heading}) => {
                     (
                         data.map((product, index)=>{
                             return(
-                                <Link to={"product/"+product?._id} className='w-full min-w-[280px] md:min-w-[320px] max-w-[280px] md:max-w-[320px] h-36 bg-white rounded-sm shadow flex'>
+                                <Link to={"product/"+product?._id} className='w-full min-w-[280px] md:min-w-[320px] max-w-[280px] md:max-w-[320px] h-44 bg-white rounded-sm shadow flex'>
     
                                     <div className='bg-slate-200 h-full p-4 min-w-[120px] md:min-w-[145px]'>
                                         <img src={product.productImage[0]} className='object-scale-down h-full hover:scale-110 transition-all'/>
                                     </div>
     
-                                    <div className='p-4'>
+                                    <div className='px-4 py-1.5'>
                                         <h2 className='font-medium text-base md:text-lg text-ellipsis line-clamp-1 text-black'>{product?.productName}</h2>
-                                        <p className=' capitalize text-slate-700'>{product?.category}</p>
-                                        <div className='flex gap-3'>
-                                            <p className='text-slate-500 line-through'>{displayINRCurrency(product?.price)}</p>
-                                            <p className='text-red-600 font-medium'>{ displayINRCurrency(product?.sellingPrice)}</p>
+                                        <p className=' capitalize text-slate-700 text-sm mt-0.5 mb-0.5'>{product?.category}</p>
+                                        <div className='flex flex-col gap-x-1'>
+                                            
+                                            <p className='text-red-600 font-medium -mb-1.5'>{ displayINRCurrency(product?.sellingPrice)}</p>
+
+                                            <div className='flex flex-row font-medium text-green-700 mb-2 pb-2'>
+                                                <p className='text-slate-500 line-through text-xs mt-0.5 py-0.5'>{displayINRCurrency(product?.price)}</p>                                                
+                                                <p className='pb-2 mb-2 ml-1'>{Math.round(((product?.price - product?.sellingPrice)/product?.price)*100)+'%'}</p>                                 
+                                                <p className='ml-1'>Off</p>
+                                            </div>
                                         </div>
-                                        <button className='text-sm font-semibold bg-red-600 hover:bg-red-700 text-white px-3 py-1 my-2 rounded-lg'  onClick={ (e)=>handleAddToCart(e, product?._id) }>Add to Cart</button>
+                                        <div className='-mt-2.5'>
+                                            <button className='text-sm font-semibold bg-red-600 hover:bg-red-700 text-white px-3 py-1 mx-2 my-0 rounded-lg'  onClick={ (e)=>handleAddToCart(e, product?._id) }>Add to Cart</button>
+                                        </div>
+                                        
                                     </div>
     
                                 </Link>

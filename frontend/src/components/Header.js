@@ -4,7 +4,7 @@ import Logo from './Logo';
 import { GrSearch } from "react-icons/gr";
 import { LuUserCircle2 } from "react-icons/lu";
 import { PiShoppingCartLight } from "react-icons/pi";
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import SummaryApi from '../common';
@@ -25,6 +25,11 @@ const Header = () => {
   const context = useContext(Context)
 
   const navigate = useNavigate()
+
+  const searchInput = useLocation()
+  console.log("Search Input", searchInput?.search.split("=")[1]);
+
+  const [search, setSearch] = useState(searchInput?.search?.split("=")[1])
 
 
 
@@ -54,6 +59,8 @@ const Header = () => {
   const handleSearch = (e)=>{
     const { value } = e.target
 
+    setSearch(value)
+
     if(value){
       navigate(`/search?q=${value}`)
     }else{
@@ -78,7 +85,7 @@ const Header = () => {
         </div>
 
         <div className='hidden lg:flex items-center w-full justify-between max-w-sm border rounded-full focus-within:shadow pl-2'>
-          <input type="text" placeholder='search product here...' className='w-full outline-none font-semibold'  onChange={handleSearch}/>
+          <input type="text" placeholder='search product here...' className='w-full outline-none font-semibold'  onChange={handleSearch} value={search}/>
           <div className='text-lg min-w-[50px] h-8 bg-red-600 flex items-center justify-center rounded-r-full text-white'>
           <GrSearch />
           </div>

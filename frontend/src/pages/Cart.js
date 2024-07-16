@@ -113,7 +113,10 @@ const Cart = () => {
     }
     
     
+
     const totalQty = data.reduce((previousValue, currentValue)=>previousValue + currentValue.quantity, 0)
+    const totalPrice = data.reduce((prev, curr)=> prev + (curr?.quantity * curr?.productId?.price), 0 )
+    const totalSellingPrice = data.reduce((prev, curr)=> prev + (curr?.quantity * curr?.productId?.sellingPrice), 0)
 
 
 
@@ -185,7 +188,7 @@ const Cart = () => {
                                             <div className='flex flex-row gap-2 mt-1 mb-0.5'>                                               
                                                 <p className='line-through text-slate-600 text-sm mt-0.5'>{displayINRCurrency(product?.productId?.price * product?.quantity)}</p>
                                                 <p className='font-semibold'>{displayINRCurrency(product?.productId?.sellingPrice * product?.quantity)}</p>
-                                                <div className='flex flex-row font-semibold text-lg text-green-700 p-0 m-0'>
+                                                <div className='flex flex-row font-semibold text-lg text-green-700 -mt-1'>
                                                     <BsArrowDown className='mt-1'/>
                                                     <p className='pb-2 mb-2'>{Math.round(((product?.productId?.price - product?.productId?.sellingPrice)/product?.productId?.price)*100)+'%'}</p>
                                                 </div>
@@ -214,13 +217,39 @@ const Cart = () => {
                         )
                         :
                         (
-                            <div className='h-36 bg-white'>
-                                <h2 className='text-white bg-red-600 px-4 py-1 font-semibold'>Price Details</h2>
-                                <div>
-                                    <p>Quantity</p>
-                                    <p>{totalQty}</p>
-                                </div>
-                            </div>
+                            // data.map((product, index)=>{
+                            //     return(
+                                    <div className='h-80 bg-white shadow-md'>
+                                        <h2 className='text-white bg-red-600 lg:text-xl px-4 py-1 font-semibold'>PRICE DETAILS</h2>
+                                        <div className='flex justify-between items-center lg:text-lg px-4 py-1.5 gap-2 font-semibold'>
+                                            <p>Price ({context?.cartProductCountt} items)</p>
+                                            {/* <p>{totalQty}</p> */}
+                                            <p>{displayINRCurrency(totalPrice)}</p>
+                                        </div>
+                                        <div className='flex justify-between items-center lg:text-lg px-4 py-1.5 gap-2 font-semibold'>
+                                            <p>Discount</p>
+                                            <div className='flex flex-row gap-1 lg:text-lg text-green-700'>
+                                                <p className=''>−</p>
+                                                <p>{displayINRCurrency(totalPrice - totalSellingPrice)}</p>
+                                            </div>
+                                        </div>
+                                        <div className='flex justify-between items-center lg:text-lg px-4 py-1.5 gap-2 font-semibold border-b border-dashed'>
+                                            <p>Delivery Charges</p>
+                                            <p className='text-green-700'>Free</p>
+                                        </div>
+                                        <div className='flex justify-between items-center text-lg lg:text-xl p-4 font-semibold border-b border-dashed'>
+                                            <p>Total Amount</p>
+                                            <p>{displayINRCurrency(totalSellingPrice)}</p>
+                                        </div>
+                                        <div className='flex justify-between items-center lg:text-lg px-4 py-1.5 gap-2 font-semibold'>
+                                            <p className='text-green-700'>You will save {displayINRCurrency(totalPrice - totalSellingPrice)} on this order</p>
+                                        </div>
+                                        <div>
+                                            <button className='bg-red-600 text-white font-semibold px-6 py-2 flex justify-center items-center mx-20 my-2 rounded-sm hover:bg-red-700'>PLACE ORDER</button>
+                                        </div>
+                                    </div>
+                                //)
+                            // })
                         )
                     }
                 </div>

@@ -27,9 +27,11 @@ const Header = () => {
   const navigate = useNavigate()
 
   const searchInput = useLocation()
-  console.log("Search Input", searchInput?.search.split("=")[1]);
+ 
+  const URLSearch = new URLSearchParams(searchInput?.search)
+  const searchQuery = URLSearch.getAll("q")
 
-  const [search, setSearch] = useState(searchInput?.search?.split("=")[1])
+  const [search, setSearch] = useState(searchQuery)
 
 
 
@@ -45,7 +47,7 @@ const Header = () => {
     if(data.success){
       toast.success(data.message)
       dispatch(setUserDetails(null))
-      // navigate("/")
+      navigate("/")
     }
 
     if(data.error){

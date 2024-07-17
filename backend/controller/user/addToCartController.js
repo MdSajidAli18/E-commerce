@@ -8,7 +8,7 @@ const addToCartController = async(req, res)=>{
         const { productId } = req?.body
         const currentUser = req.userId
 
-        const isProductAlreadyInCart = await addToCartModel.findOne({productId})
+        const isProductAlreadyInCart = await addToCartModel.findOne({productId, userId: currentUser})
 
         if(isProductAlreadyInCart) {
             return res.status(409).json({

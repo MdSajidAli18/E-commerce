@@ -1,5 +1,5 @@
 import React, { useCallback, useContext, useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import SummaryApi from '../common'
 import { FaStar } from "react-icons/fa";
 import { FaRegStarHalfStroke } from "react-icons/fa6";
@@ -64,14 +64,6 @@ const ProductDetails = () => {
 
 
 
-  const { fetchUserCart} = useContext(Context)
-  const handleAddToCart = async(e, id)=>{
-      await addToCart(e, id)
-      fetchUserCart()
-  }
-
-
-
   useEffect(()=>{
     fetchProductDetails()
   }, [params])
@@ -99,6 +91,26 @@ const ProductDetails = () => {
   const handleLeaveImageZoom = ()=>{
     setZoomImage(false)
   }
+
+
+
+
+  const { fetchUserCart} = useContext(Context)
+
+  const handleAddToCart = async(e, id)=>{
+    await addToCart(e, id)
+    fetchUserCart()
+  }
+
+  const navigate = useNavigate()
+
+  const handleBuyNow = async(e,id)=>{
+    await addToCart(e,id)
+    fetchUserCart()
+    navigate("/cart")
+
+  }
+
 
 
 
@@ -141,9 +153,9 @@ const ProductDetails = () => {
               loading? (
                 <div className='flex gap-2 lg:flex-col overflow-scroll scrollbar-none h-full'>
                   {
-                    productImageListLoading.map(el=>{
+                    productImageListLoading.map((el, index)=>{
                       return(
-                        <div className='h-20 w-20 bg-slate-200 rounded animate-pulse'  key={"loadingImage"}>
+                        <div className='h-20 w-20 bg-slate-200 rounded animate-pulse'  key={"loadingImage"+index}>
                           
                         </div>
                       )
@@ -225,7 +237,7 @@ const ProductDetails = () => {
 
               <div className='flex items-center gap-3 my-2'>
                 <button className='border-2 border-red-600 rounded text-red-600 font-medium px-3 py-1 min-w-[120px] hover:bg-red-600 hover:text-white  transition'  onClick={ (e)=>handleAddToCart(e, data?._id) }>Add to Cart</button>
-                <button className='border-2 border-red-600 rounded font-medium px-3 py-1 min-w-[120px] bg-red-600 text-white hover:bg-white hover:text-red-600  transition'>Buy Now</button>
+                <button className='border-2 border-red-600 rounded font-medium px-3 py-1 min-w-[120px] bg-red-600 text-white hover:bg-white hover:text-red-600  transition'  onClick={ (e)=>handleBuyNow(e, data?._id) }>Buy Now</button>
               </div>
 
             </div>

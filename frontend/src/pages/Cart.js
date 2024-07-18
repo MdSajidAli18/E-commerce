@@ -6,6 +6,7 @@ import { FaStar } from 'react-icons/fa'
 import { FaRegStarHalfStroke } from 'react-icons/fa6'
 import { MdDelete } from "react-icons/md";
 import { BsArrowDown } from "react-icons/bs";
+import yourCartIsEmptyimage from '../assets/yourCartIsEmptyimage.jpg'
 
 const Cart = () => {
 
@@ -121,6 +122,25 @@ const Cart = () => {
     const totalSellingPrice = data.reduce((prev, curr)=> prev + (curr?.quantity * curr?.productId?.sellingPrice), 0)
 
 
+    const handlePayment = async()=>{
+        // const response = await fetch(SummaryApi.paymentt.url, {
+        //     method: SummaryApi.paymentt.method,
+        //     credentials: 'include',
+        //     headers: {
+        //         "content-type": "application/json"
+        //     },
+        //     body: JSON.stringify({
+        //         cartItems: data
+        //     })
+        // })
+
+        // const responseData = await response.json()
+
+        // console.log("responseDattaa", responseData);
+
+        alert("I will add the payment feature in the future")
+
+    }
 
 
 
@@ -135,7 +155,13 @@ const Cart = () => {
             <div className='text-center text-lg my-3'>
                 {
                     data.length === 0 && !loading && (
-                        <p className='bg-white py-5'>Your cart is empty!</p>
+                        // <p className='bg-white py-5'>Your cart is empty!</p>
+                        <div className="bg-white text-center p-6 mb-10 mt-10 gap-3 flex flex-col items-center justify-center h-60 sm:h-80 md:h-96 lg:h-120">
+                        <img src={yourCartIsEmptyimage} className="w-16 h-16 sm:w-24 sm:h-24 md:w-48 md:h-48 lg:w-60 lg:h-60" />
+                        <p className="text-sm sm:text-lg md:text-xl lg:text-3xl font-semibold">Your cart is empty!</p>
+                        <p className="text-xs sm:text-sm md:text-lg lg:text-2xl text-ellipsis text-gray-500">Looks like you have not added anything to your cart. Go ahead & explore top categories.</p>
+                        </div>
+                        
                     )
                 }
             </div>
@@ -210,51 +236,55 @@ const Cart = () => {
 
 
                 {/** Price Details */}
-                <div className='mt-5 lg:mt-0 w-full max-w-sm'>
-                    {
-                        loading? (
-                            <div className='h-36 bg-slate-200 border border-slate-200 animate-pulse'>
-                                
-                            </div>
-                        )
-                        :
-                        (
-                            // data.map((product, index)=>{
-                            //     return(
-                                    <div className='h-80 bg-white shadow-md'>
-                                        <h2 className='text-white bg-red-600 lg:text-xl px-4 py-1 font-semibold'>PRICE DETAILS</h2>
-                                        <div className='flex justify-between items-center lg:text-lg px-4 py-1.5 gap-2 font-semibold'>
-                                            <p>Price ({context?.cartProductCountt} items)</p>
-                                            {/* <p>{totalQty}</p> */}
-                                            <p>{displayINRCurrency(totalPrice)}</p>
-                                        </div>
-                                        <div className='flex justify-between items-center lg:text-lg px-4 py-1.5 gap-2 font-semibold'>
-                                            <p>Discount</p>
-                                            <div className='flex flex-row gap-1 lg:text-lg text-green-700'>
-                                                <p className=''>−</p>
-                                                <p>{displayINRCurrency(totalPrice - totalSellingPrice)}</p>
+                {
+                    data[0] && (
+                        <div className='mt-5 lg:mt-0 w-full max-w-sm'>
+                        {
+                            loading? (
+                                <div className='h-36 bg-slate-200 border border-slate-200 animate-pulse'>
+                                    
+                                </div>
+                            )
+                            :
+                            (
+                                // data.map((product, index)=>{
+                                //     return(
+                                        <div className='h-80 bg-white shadow-md'>
+                                            <h2 className='text-white bg-red-600 lg:text-xl px-4 py-1 font-semibold'>PRICE DETAILS</h2>
+                                            <div className='flex justify-between items-center lg:text-lg px-4 py-1.5 gap-2 font-semibold'>
+                                                <p>Price ({context?.cartProductCountt} items)</p>
+                                                {/* <p>{totalQty}</p> */}
+                                                <p>{displayINRCurrency(totalPrice)}</p>
+                                            </div>
+                                            <div className='flex justify-between items-center lg:text-lg px-4 py-1.5 gap-2 font-semibold'>
+                                                <p>Discount</p>
+                                                <div className='flex flex-row gap-1 lg:text-lg text-green-700'>
+                                                    <p className=''>−</p>
+                                                    <p>{displayINRCurrency(totalPrice - totalSellingPrice)}</p>
+                                                </div>
+                                            </div>
+                                            <div className='flex justify-between items-center lg:text-lg px-4 py-1.5 gap-2 font-semibold border-b border-dashed'>
+                                                <p>Delivery Charges</p>
+                                                <p className='text-green-700'>Free</p>
+                                            </div>
+                                            <div className='flex justify-between items-center text-lg lg:text-xl p-4 font-semibold border-b border-dashed'>
+                                                <p>Total Amount</p>
+                                                <p>{displayINRCurrency(totalSellingPrice)}</p>
+                                            </div>
+                                            <div className='flex justify-between items-center lg:text-lg px-4 py-1.5 gap-2 font-semibold'>
+                                                <p className='text-green-700'>You will save {displayINRCurrency(totalPrice - totalSellingPrice)} on this order</p>
+                                            </div>
+                                            <div>
+                                                <button className='bg-red-600 text-white font-semibold px-6 py-2 flex justify-center items-center mx-20 my-2 rounded-sm hover:bg-red-700'  onClick={handlePayment}>Payment</button>
                                             </div>
                                         </div>
-                                        <div className='flex justify-between items-center lg:text-lg px-4 py-1.5 gap-2 font-semibold border-b border-dashed'>
-                                            <p>Delivery Charges</p>
-                                            <p className='text-green-700'>Free</p>
-                                        </div>
-                                        <div className='flex justify-between items-center text-lg lg:text-xl p-4 font-semibold border-b border-dashed'>
-                                            <p>Total Amount</p>
-                                            <p>{displayINRCurrency(totalSellingPrice)}</p>
-                                        </div>
-                                        <div className='flex justify-between items-center lg:text-lg px-4 py-1.5 gap-2 font-semibold'>
-                                            <p className='text-green-700'>You will save {displayINRCurrency(totalPrice - totalSellingPrice)} on this order</p>
-                                        </div>
-                                        <div>
-                                            <button className='bg-red-600 text-white font-semibold px-6 py-2 flex justify-center items-center mx-20 my-2 rounded-sm hover:bg-red-700'>PLACE ORDER</button>
-                                        </div>
-                                    </div>
-                                //)
-                            // })
-                        )
-                    }
-                </div>
+                                    //)
+                                // })
+                            )
+                        }
+                        </div>
+                    )
+                }
 
 
             </div>

@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import loginIcons from '../assets/assest/signin.gif';
+// import loginIcons from '../assets/assest/signin.gif';
 import { LuEye } from "react-icons/lu";
 import { LuEyeOff } from "react-icons/lu";
 import { Link, useNavigate } from 'react-router-dom';
@@ -7,14 +7,12 @@ import { toast } from 'react-toastify';
 import SummaryApi from '../common';
 import Context from '../context';
 
+import loginImage from '../assets/loginImage.jpg';
+
 const Login = () => {
 
-    //s
     const [showPassword, setShowPassword] = useState(false);
-    //p
 
-
-    //s
     const [data, setData] = useState({
         email: "",
         password: ""
@@ -62,75 +60,78 @@ const Login = () => {
         };
 
     };
-    //p
 
 
 
 
     return (
 
-        <section id='login'>
+        <section id='login'  className='flex justify-center items-center min-h-screen bg-white'>
 
-            <div className='mx-auto container p-4'>
+            <div className='container mx-auto px-4 mb-28 flex flex-col md:flex-row shadow-md'>
 
-                <div className='bg-white p-5  w-full max-w-sm mx-auto rounded-lg'>
+                {/* Left Section (Image and Text) */}
+                <div className="bg-white text-center p-6 md:p-0 mb-10 md:mb-0 flex flex-col items-center justify-center w-full md:w-1/2">
+                    <img src={loginImage} className="w-24 h-24 md:w-48 md:h-48" alt="Sign Up" />
+                    <p className="text-lg md:text-3xl font-semibold mt-4">Welcome back!</p>
+                    <p className="text-sm md:text-lg text-gray-500 mt-2">Get access to your Orders, Wishlist and Recommendations</p>
+                </div>
 
-                    <div className='w-20 h-20 mx-auto'>
+                {/* Right Section (Login Form) */}
+                <div className='bg-white p-5 w-full md:w-1/2 flex flex-col justify-center items-center'>
+
+                    {/* <div className='w-20 h-20 mx-auto'>
                         <img src={loginIcons} alt="login icons"/>
-                    </div>
+                    </div> */}
 
-                    <form className='pt-6 flex flex-col gap-2' onSubmit={handleSubmit}>
+                    <p className="text-lg md:text-3xl font-semibold mt-4 mb-8">Login</p>
 
-                        <div className='grid'>
-                            <label className='font-semibold'>Email : </label>
-                            <div className='bg-slate-100 p-2'>
-                                <input 
-                                    type="email"
-                                    placeholder='enter email' 
-                                    name='email'
-                                    value={data.email}
-                                    onChange={handleOnChange}
-                                    className='w-full h-full outline-none bg-transparent'
-                                />
-                            </div>
+                    <form className='w-full max-w-md' onSubmit={handleSubmit}>
+
+                        <div className='mb-4'>
+                            <label className='font-semibold'>Email: </label>
+                            
+                            <input 
+                                type="email"
+                                placeholder='Enter email' 
+                                name='email'
+                                value={data.email}
+                                onChange={handleOnChange}
+                                required={true}
+                                className='w-full px-3 py-2 mt-1 outline-none bg-gray-100 rounded-lg'
+                            />
+                            
                         </div>
 
-                        <div>
-                            <label className='font-semibold'>Password : </label>
-                            <div className='bg-slate-100 p-2 flex'>
+                        <div className='mb-4'>
+                            <label className='font-semibold'>Password: </label>
+                            <div className='relative'>
                                 <input 
                                     type={showPassword? "text" : "password"} 
-                                    placeholder='enter password'
+                                    placeholder='Enter password'
                                     name='password'
                                     value={data.password}
-                                    onChange={handleOnChange} 
-                                    className='w-full h-full outline-none bg-transparent'
+                                    onChange={handleOnChange}
+                                    required={true} 
+                                    className='w-full px-3 py-2 mt-1 outline-none bg-gray-100 rounded-lg'
                                 />
-                                <div className='cursor-pointer text-xl'  onClick={()=> setShowPassword((prev) => !(prev))}>
-                                    <span>
-                                        {
-                                            showPassword? (
-                                                <LuEyeOff />
-                                            )
-                                            :
-                                            (
-                                                <LuEye />
-                                            )
-                                        }
-                                    </span>
+                                <div className='absolute right-3 top-3 text-gray-400 cursor-pointer' onClick={() => setShowPassword(prev => !prev)}>
+                                    {showPassword ? <LuEyeOff /> : <LuEye />}
                                 </div>
                             </div>
-                            <Link to={"/forgot-password"}  className='block w-fit ml-auto hover:underline hover:text-red-600 font-semibold'>
+
+                            <Link to={"/forgot-password"}  className='block w-fit ml-auto hover:underline text-red-800 hover:text-red-900 font-semibold'>
                                 Forgot password?
                             </Link>
+
                         </div>
 
 
-                        <button className='bg-red-600 hover:bg-red-700 font-semibold text-white px-6 py-2 rounded-full w-full max-w-[150px] hover:scale-110 transition-all mx-auto block mt-6'>Login</button>
+                        <button className='bg-black text-white hover:scale-105 transition px-6 py-2 rounded-lg w-full mt-4 font-semibold'>Login</button>
 
                     </form>
 
-                    <p className='my-5 font-semibold'>Don't have an account? <Link to={"/sign-up"}  className='text-red-600 hover:text-red-700 hover:underline'>Sign up</Link></p>
+                    <p className='my-5 text-center font-semibold'>Don't have an account? <Link to={"/sign-up"}  className='text-red-800 hover:text-red-900 hover:underline'>Sign up</Link></p>
 
                 </div>
 

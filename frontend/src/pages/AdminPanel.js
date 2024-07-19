@@ -40,10 +40,10 @@ const AdminPanel = () => {
         </div>
 
         {/** navigation */}
-        <div>
+        <div className=''>
           <nav className='grid p-4'>
-            <Link to={"all-users"} className='px-2 py-1 hover:bg-slate-100'>All users</Link>
-            <Link to={"all-products"} className='px-2 py-1 hover:bg-slate-100'>All products</Link>
+            <Link to={"all-users"} className='px-16 py-1 font-semibold text-sm border-2 border-black text-black hover:bg-black hover:text-white'>All users</Link>
+            <Link to={"all-products"} className='px-16 py-1 my-1 font-semibold text-sm border-2 border-black text-black hover:bg-black hover:text-white '>All products</Link>
           </nav>
         </div>
 

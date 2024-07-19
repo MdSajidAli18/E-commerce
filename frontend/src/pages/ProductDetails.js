@@ -116,7 +116,7 @@ const ProductDetails = () => {
 
 
   return (
-    <div className='container mx-auto p-4'>
+    <div className='container mx-auto p-4 bg-white shadow-lg'>
 
       <div className='min-h-[200px] flex flex-col lg:flex-row gap-4'>
 
@@ -124,14 +124,14 @@ const ProductDetails = () => {
         {/** Product Image */}
         <div className='h-96 flex flex-col lg:flex-row-reverse gap-4'>
 
-          <div className='h-[300px] w-[300px] lg:h-96 lg:w-96 bg-slate-200 relative p-2'>
+          <div className='h-[300px] w-[300px] lg:h-96 lg:w-96 bg-slate-50 border relative p-2'>
 
             <img src={activeImage}  className='h-full w-full object-scale-down mix-blend-multiply'  onMouseMove={handleZoomImage}  onMouseLeave={handleLeaveImageZoom}/>
 
             {/** The product image zooms in on hovering. */}
             {
               zoomImage && (
-                <div className='hidden lg:block absolute min-w-[500px] min-h-[500px] bg-slate-200 p-1 -right-[510px] top-0 bottom-0 overflow-hidden'>
+                <div className='hidden lg:block absolute min-w-[500px] min-h-[500px] bg-slate-100 p-1 -right-[510px] top-0 bottom-0 overflow-hidden'>
                   <div
                     className='w-full h-full min-h-[400px] min-w-[400px] mix-blend-multiply scale-150'
                     style={{
@@ -169,7 +169,7 @@ const ProductDetails = () => {
                   {
                     data?.productImage?.map((imgURL, index)=>{
                       return(
-                        <div className='h-20 w-20 bg-slate-200 rounded p-1'  key={imgURL}>
+                        <div className='h-20 w-20 bg-slate-100 border shadow-lg rounded p-1'  key={imgURL}>
                           <img src={imgURL}  className='w-full h-full object-scale-down mix-blend-multiply cursor-pointer hover:scale-105'  onMouseEnter={ ()=>handleMouseEnterProduct(imgURL) }  onClick={ ()=>handleMouseEnterProduct(imgURL) }/>
                         </div>
                       )
@@ -218,7 +218,7 @@ const ProductDetails = () => {
               <p className=' capitalize text-slate-500'>{data?.category}</p>
               <p className=' text-xl '>{data?.description}</p>
 
-              <div className='text-red-600 text-lg flex items-center gap-1'>
+              <div className='text-green-700 text-lg flex items-center gap-1'>
                 <FaStar />
                 <FaStar />
                 <FaStar />
@@ -236,8 +236,8 @@ const ProductDetails = () => {
               </div>
 
               <div className='flex items-center gap-3 my-2'>
-                <button className='border-2 border-red-600 rounded text-red-600 font-medium px-3 py-1 min-w-[120px] hover:bg-red-600 hover:text-white  transition'  onClick={ (e)=>handleAddToCart(e, data?._id) }>Add to Cart</button>
-                <button className='border-2 border-red-600 rounded font-medium px-3 py-1 min-w-[120px] bg-red-600 text-white hover:bg-white hover:text-red-600  transition'  onClick={ (e)=>handleBuyNow(e, data?._id) }>Buy Now</button>
+                <button className='border-2 border-black rounded text-black font-medium px-3 py-1 min-w-[120px] hover:bg-black hover:text-white  transition'  onClick={ (e)=>handleAddToCart(e, data?._id) }>Add to Cart</button>
+                <button className='border-2 border-black rounded font-medium px-3 py-1 min-w-[120px] bg-black text-white hover:bg-white hover:text-black  transition'  onClick={ (e)=>handleBuyNow(e, data?._id) }>Buy Now</button>
               </div>
 
             </div>

@@ -26,13 +26,13 @@ const CategoryList = () => {
 
     return (
 
-        <div className='container mx-auto p-4'>
+        <div className='container mx-auto p-4 bg-white shadow-lg'>
             <div className='flex items-center gap-4 justify-between overflow-scroll scrollbar-none'>
                 {
                     loading? (
                         categoryLoading.map((el, index)=>{
                             return(
-                                <div className='h-16 w-16 md:w-20 md:h-20 rounded-full overflow-hidden bg-slate-200 animate-pulse'  key={"categoryLoading"+index}>
+                                <div className='h-12 w-12 sm:h-16 sm:w-16 md:h-20 md:w-20 rounded-full overflow-hidden bg-slate-200 animate-pulse'  key={"categoryLoading"+index}>
                                 </div>
                             )
                         })
@@ -41,11 +41,11 @@ const CategoryList = () => {
                     (
                         categoryProduct.map((product, index)=>{
                             return(
-                                <Link to={"/product-category?category="+product?.category}  className='cursor-pointer'  key={product?.category}>
-                                    <div className='w-16 h-16 md:w-20 md:h-20 rounded-full overflow-hidden p-4 bg-slate-200 flex justify-center items-center'>
+                                <Link to={"/product-category?category="+product?.category}  className='flex flex-col items-center text-center'  key={product?.category}>
+                                    <div className='w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 rounded-full overflow-hidden p-2 bg-slate-100 flex justify-center items-center'>
                                         <img src={product?.productImage[0]}  alt={product?.category}  className='h-full object-scale-down mix-blend-multiply hover:scale-125 transition-all'/>
                                     </div>
-                                    <p className='text-center text-sm md:text-base capitalize'>{product?.category}</p>
+                                    <p className='text-center text-sm md:text-base mt-1 capitalize'>{product?.category}</p>
                                 </Link>
                             )
                         })
@@ -59,3 +59,4 @@ const CategoryList = () => {
 }
 
 export default CategoryList
+

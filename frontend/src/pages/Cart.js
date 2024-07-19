@@ -146,13 +146,17 @@ const Cart = () => {
 
 
     return(
-        <div className='container mx-auto'>
+        <div className='container mx-auto bg-white'>
 
-            <div className='my-4 -mb-3 ml-2.5 px-2 pb-0.5 text-ellipsis text-lg lg:text-xl bg-red-600 text-white rounded-md w-fit'>
+            {/* <div className='my-4 -mb-3 ml-2.5 px-2 pb-0.5 text-ellipsis text-lg sm:text-xs bg-white border text-black border-black rounded-md w-fit'>
+                My Cart
+            </div> */}
+            <div className='my-4 -mb-3 ml-2.5 px-2 pb-0.5 text-ellipsis text-lg sm:text-xs md:text-base lg:text-lg xl:text-xl bg-white border text-black border-black rounded-md w-fit'>
                 My Cart
             </div>
 
-            <div className='text-center text-lg my-3'>
+
+            <div className='text-center text-lg my-4'>
                 {
                     data.length === 0 && !loading && (
                         // <p className='bg-white py-5'>Your cart is empty!</p>
@@ -185,9 +189,9 @@ const Cart = () => {
                         (
                             data.map((product, index)=>{
                                 return(
-                                    <div key={product?._id+"Add To Cart Loading"} className='w-full bg-white h-36 my-2 border border-slate-300 rounded grid grid-cols-[128px,1fr]'>
+                                    <div key={product?._id+"Add To Cart Loading"} className='w-full bg-white h-36 my-2 border rounded grid grid-cols-[128px,1fr]'>
 
-                                        <div className='w-36 h-36 bg-slate-200'>
+                                        <div className='w-36 h-36 bg-slate-100'>
                                             <img src={product?.productId?.productImage[0]}  className='w-full h-full object-scale-down mix-blend-multiply'/>
                                         </div>
 
@@ -201,7 +205,7 @@ const Cart = () => {
                                             
                                             <h2 className='text-lg lg:text-xl text-ellipsis line-clamp-1'>{product?.productId?.productName}</h2>
                                             <p className='capitalize text-slate-600'>{product?.productId?.category}</p>
-                                            <div className='text-sm text-red-600 flex items-center gap-1'>
+                                            <div className='text-sm text-green-700 flex items-center gap-1'>
                                                 <FaStar />
                                                 <FaStar />
                                                 <FaStar />
@@ -209,9 +213,9 @@ const Cart = () => {
                                                 <FaRegStarHalfStroke />
                                             </div>
                                             <div className='flex items-center gap-1.5 mt-1 p-0.5'>
-                                                <button className='  border-2 font-semibold border-red-600 text-red-600 hover:bg-red-600 hover:text-white w-5 h-5 flex justify-center items-center rounded'  onClick={ ()=>decreaseQty(product?._id, product?.quantity)}>-</button>
+                                                <button className='  border-2 font-semibold border-gray-900 text-gray-900 hover:bg-black hover:text-white w-5 h-5 flex justify-center items-center rounded'  onClick={ ()=>decreaseQty(product?._id, product?.quantity)}>-</button>
                                                 <span>{product?.quantity}</span>
-                                                <button className=' border-2 font-semibold border-red-600 text-red-600 hover:bg-red-600 hover:text-white w-5 h-5 flex justify-center items-center rounded'  onClick={ ()=>increaseQty(product?._id, product?.quantity) }>+</button>
+                                                <button className=' border-2 font-semibold border-gray-900 text-gray-900 hover:bg-black hover:text-white w-5 h-5 flex justify-center items-center rounded'  onClick={ ()=>increaseQty(product?._id, product?.quantity) }>+</button>
                                             </div>
                                             <div className='flex flex-row gap-2 mt-1 mb-0.5'>                                               
                                                 <p className='line-through text-slate-600 text-sm mt-0.5'>{displayINRCurrency(product?.productId?.price * product?.quantity)}</p>
@@ -249,33 +253,37 @@ const Cart = () => {
                             (
                                 // data.map((product, index)=>{
                                 //     return(
+
+
+
+                                
                                         <div className='h-80 bg-white shadow-md'>
-                                            <h2 className='text-white bg-red-600 lg:text-xl px-4 py-1 font-semibold'>PRICE DETAILS</h2>
-                                            <div className='flex justify-between items-center lg:text-lg px-4 py-1.5 gap-2 font-semibold'>
+                                            <h2 className='text-black border border-black lg:text-xl px-4 py-1 font-semibold'>PRICE DETAILS</h2>
+                                            <div className='flex justify-between items-center lg:text-lg px-4 py-1.5 gap-2 font-semibold text-gray-700'>
                                                 <p>Price ({context?.cartProductCountt} items)</p>
                                                 {/* <p>{totalQty}</p> */}
                                                 <p>{displayINRCurrency(totalPrice)}</p>
                                             </div>
-                                            <div className='flex justify-between items-center lg:text-lg px-4 py-1.5 gap-2 font-semibold'>
+                                            <div className='flex justify-between items-center lg:text-lg px-4 py-1.5 gap-2 font-semibold text-gray-700'>
                                                 <p>Discount</p>
                                                 <div className='flex flex-row gap-1 lg:text-lg text-green-700'>
                                                     <p className=''>−</p>
                                                     <p>{displayINRCurrency(totalPrice - totalSellingPrice)}</p>
                                                 </div>
                                             </div>
-                                            <div className='flex justify-between items-center lg:text-lg px-4 py-1.5 gap-2 font-semibold border-b border-dashed'>
+                                            <div className='flex justify-between items-center lg:text-lg px-4 py-1.5 gap-2 font-semibold border-b-2 border-dashed text-gray-700'>
                                                 <p>Delivery Charges</p>
                                                 <p className='text-green-700'>Free</p>
                                             </div>
-                                            <div className='flex justify-between items-center text-lg lg:text-xl p-4 font-semibold border-b border-dashed'>
+                                            <div className='flex justify-between items-center text-lg lg:text-xl p-4 font-semibold border-b-2 border-dashed text-gray-800'>
                                                 <p>Total Amount</p>
                                                 <p>{displayINRCurrency(totalSellingPrice)}</p>
                                             </div>
                                             <div className='flex justify-between items-center lg:text-lg px-4 py-1.5 gap-2 font-semibold'>
                                                 <p className='text-green-700'>You will save {displayINRCurrency(totalPrice - totalSellingPrice)} on this order</p>
                                             </div>
-                                            <div>
-                                                <button className='bg-red-600 text-white font-semibold px-6 py-2 flex justify-center items-center mx-20 my-2 rounded-sm hover:bg-red-700'  onClick={handlePayment}>Payment</button>
+                                            <div className='flex justify-center'>
+                                                <button className='bg-black text-white font-semibold px-6 py-2 flex justify-center items-center mx-20 my-2 rounded-sm hover:bg-black '  onClick={handlePayment}>Payment</button>
                                             </div>
                                         </div>
                                     //)

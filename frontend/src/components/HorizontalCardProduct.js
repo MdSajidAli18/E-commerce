@@ -45,7 +45,7 @@ const HorizontalCardProduct = ({category, heading}) => {
 
 
     return (
-        <div className='container mx-auto px-4 my-6 relative'>
+        <div className='container mx-auto px-4 my-0 relative bg-white shadow-lg'>
 
             <h2 className='text-2xl font-semibold py-4'>{heading}</h2>
 
@@ -82,13 +82,13 @@ const HorizontalCardProduct = ({category, heading}) => {
                     (
                         data.map((product, index)=>{
                             return(
-                                <Link to={"product/"+product?._id} className='w-full min-w-[280px] md:min-w-[320px] max-w-[280px] md:max-w-[320px] h-44 bg-white rounded-sm shadow flex'>
+                                <Link to={"product/"+product?._id} className='w-full min-w-[280px] md:min-w-[320px] max-w-[280px] md:max-w-[320px] h-44 bg-white rounded-sm  border border-gray-200 flex'>
     
-                                    <div className='bg-slate-200 h-full p-4 min-w-[120px] md:min-w-[145px]'>
+                                    <div className='bg-slate-50 h-full p-4 min-w-[120px] md:min-w-[145px]'>
                                         <img src={product.productImage[0]} className='object-scale-down h-full hover:scale-110 transition-all'/>
                                     </div>
     
-                                    <div className='px-4 py-1.5'>
+                                    <div className='px-4 py-1.5 bg-white'>
                                         <h2 className='font-medium text-base md:text-lg text-ellipsis line-clamp-1 text-black'>{product?.productName}</h2>
                                         <p className=' capitalize text-slate-700 text-sm mt-0.5 mb-0.5'>{product?.category}</p>
                                         <div className='flex flex-col gap-x-1'>
@@ -102,7 +102,7 @@ const HorizontalCardProduct = ({category, heading}) => {
                                             </div>
                                         </div>
                                         <div className='-mt-2.5'>
-                                            <button className='text-sm font-semibold bg-red-600 hover:bg-red-700 text-white px-3 py-1 mx-2 my-0 rounded-lg'  onClick={ (e)=>handleAddToCart(e, product?._id) }>Add to Cart</button>
+                                            <button className='text-sm font-semibold bg-black hover:scale-105 transition text-white px-3 py-1 mx-2 my-0 rounded-lg'  onClick={ (e)=>handleAddToCart(e, product?._id) }>Add to Cart</button>
                                         </div>
                                         
                                     </div>
@@ -122,3 +122,4 @@ const HorizontalCardProduct = ({category, heading}) => {
 
 
 export default HorizontalCardProduct
+

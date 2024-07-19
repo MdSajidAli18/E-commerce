@@ -46,7 +46,7 @@ const VerticalCardProduct = ({category, heading}) => {
 
 
     return (
-        <div className='container mx-auto px-4 my-6 relative'>
+        <div className='container mx-auto px-4 my-0 relative bg-white shadow-lg'>
 
             <h2 className='text-2xl font-semibold py-4'>{heading}</h2>
 
@@ -82,13 +82,13 @@ const VerticalCardProduct = ({category, heading}) => {
                     (
                         data.map((product, index)=>{
                             return(
-                                <Link to={"product/"+product?._id} className='w-full min-w-[280px] md:min-w-[320px] max-w-[280px] md:max-w-[320px] bg-white rounded-sm shadow'>
+                                <Link to={"product/"+product?._id} className='w-full min-w-[280px] md:min-w-[320px] max-w-[280px] md:max-w-[320px] bg-white rounded-sm border border-gray-200'>
     
-                                    <div className='bg-slate-200 h-48 p-4 min-w-[280px] md:min-w-[145px] flex justify-center items-center'>
+                                    <div className='bg-slate-50 h-48 p-4 min-w-[280px] md:min-w-[145px] flex justify-center items-center'>
                                         <img src={product.productImage[0]} className='object-scale-down h-full hover:scale-110 transition-all mix-blend-multiply'/>
                                     </div>
     
-                                    <div className='p-4 grid gap-2'>
+                                    <div className='p-4 grid gap-2 bg-white'>
                                         <h2 className='font-medium text-base md:text-lg text-ellipsis line-clamp-1 text-black'>{product?.productName}</h2>
                                         <p className=' capitalize text-slate-700'>{product?.category}</p>
                                         <div className='flex gap-3'>                                            
@@ -101,7 +101,7 @@ const VerticalCardProduct = ({category, heading}) => {
                                                 <p className='ml-1'>Off</p>
                                             </div>
                                         </div>
-                                        <button className='text-sm bg-red-600 hover:bg-red-700 font-semibold text-white px-6 py-2 mx-3 my-3 rounded-md'  onClick={ (e)=>handleAddToCart(e, product?._id) }>Add to Cart</button>
+                                        <button className='text-sm bg-black hover:scale-105 transition font-semibold text-white px-6 py-2 mx-3 my-3 rounded-md'  onClick={ (e)=>handleAddToCart(e, product?._id) }>Add to Cart</button>
                                     </div>
     
                                 </Link>

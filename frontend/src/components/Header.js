@@ -1,6 +1,4 @@
-import React, { useContext, useState } from 'react'
-import Logo from './Logo';
-
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import { GrSearch } from "react-icons/gr";
 import { LuUserCircle2 } from "react-icons/lu";
 import { PiShoppingCartLight } from "react-icons/pi";
@@ -32,6 +30,8 @@ const Header = () => {
   const searchQuery = URLSearch.getAll("q")
 
   const [search, setSearch] = useState(searchQuery)
+
+  const dropdownRef = useRef(null);
 
 
 
@@ -69,7 +69,22 @@ const Header = () => {
       navigate('/search')
     }
 
-  } 
+  }
+  
+  
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setMenuDisplay(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
 
 
 
@@ -80,34 +95,41 @@ const Header = () => {
       
       <div className=" h-full container mx-auto flex items-center px-4 justify-between">
 
-        <div className=''>
+        <div className='flex-shrink-0 hover:border-2 hover:border-black transition duration-300'>
           <Link to={"/"}>
-            <Logo w={90} h={50}/>
+            <p className="text-sm sm:text-lg md:text-xl font-bold bg-white text-black px-2 sm:px-3 md:px-4 py-1 sm:py-1.5 md:py-2 rounded-lg shadow-2xl" style={{ fontFamily: 'Dancing Script, cursive' }}>
+              Ecomaxx
+            </p>
           </Link>
         </div>
 
-        <div className='hidden lg:flex items-center w-full justify-between max-w-sm border rounded-full focus-within:shadow pl-2'>
-          <input type="text" placeholder='search product here...' className='w-full outline-none font-semibold'  onChange={handleSearch} value={search}/>
-          <div className='text-lg min-w-[50px] h-8 bg-red-600 flex items-center justify-center rounded-r-full text-white'>
+        <div className="flex items-center w-full max-w-xs md:max-w-md border focus-within:shadow-md pl-2">
+          <input type="text"
+            placeholder='Search product here...' 
+            className='w-full outline-none font-semibold text-xs sm:text-base py-1 sm:py-1.5 md:py-2'  
+            onChange={handleSearch} 
+            value={search}
+          />
+          <div className="text-sm sm:text-lg min-w-[30px] sm:min-w-[50px] md:min-w-[60px] h-6 sm:h-8 md:h-10 flex items-center justify-center rounded-r-full text-slate-500">
           <GrSearch />
           </div>
         </div>
 
-        <div className='flex items-center gap-7'>
+        <div className='flex items-center gap-2 sm:gap-3 md:gap-5 lg:gap-7'>
 
           <div className='relative flex justify-center'>
 
             {
               user?._id && (
                 
-                <div className='text-3xl cursor-pointer relative flex justify-center' onClick={()=> setMenuDisplay(prev=> !prev)}>
+                <div  className="text-lg sm:text-xl md:text-2xl cursor-pointer relative flex justify-center" onClick={()=> setMenuDisplay(prev=> !prev)}>
                   {
                     user?.profilePic? (
-                      <img src={user?.profilePic} className='w-10 h-10 rounded-full' alt={user?.name}/>
+                      <img src={user?.profilePic} className="w-6 sm:w-8 md:w-10 h-6 sm:h-8 md:h-10 rounded-full" alt={user?.name}/>
                     )
                     :
                     (
-                      <LuUserCircle2 />
+                      <LuUserCircle2 className="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10"/>
                     )
                   }
               </div>
@@ -117,11 +139,11 @@ const Header = () => {
 
             {
               menuDisplay && (
-                <div className='absolute bg-white bottom-0 top-11 h-fit p-2 shadow-lg rounded'>
+                <div ref={dropdownRef} className='absolute bg-white bottom-0 top-11 h-fit p-2 shadow-lg rounded'>
                 <nav>
                   {
                     user?.role === ROLE.ADMIN && (
-                      <Link to={"/admin-panel/all-products"} className='whitespace-nowrap hidden md:block hover:bg-slate-100 p-2'  onClick={()=> setMenuDisplay(prev=> !prev)}>Admin Panel</Link>
+                      <Link to={"/admin-panel/all-products"} className='whitespace-nowrap hidden md:block hover:bg-slate-100 p-1 text-sm font-semibold'  onClick={()=> setMenuDisplay(prev=> !prev)}>Admin Panel</Link>
                     )
                   }
                 </nav>
@@ -133,12 +155,12 @@ const Header = () => {
 
           {
             user?._id && (
-              <Link to={"/cart"} className='text-3xl relative'>
+              <Link to={"/cart"} className="text-xl sm:text-2xl md:text-3xl relative">
 
                 <span><PiShoppingCartLight /></span>
     
-                <div className='bg-red-600 text-white  w-4 h-4 rounded-full p-1 flex items-center justify-center absolute -top-1 -right-2'>
-                  <p className='text-xs'>{context?.cartProductCountt}</p>
+                <div className="bg-red-600 text-white w-3 sm:w-4 md:w-5 h-3 sm:h-4 md:h-5 rounded-full p-1 flex items-center justify-center absolute -top-1 -right-2">
+                  <p className="text-xs sm:text-sm md:text-base">{context?.cartProductCountt}</p>
                 </div>
   
               </Link>
@@ -148,10 +170,10 @@ const Header = () => {
           <div>
             {
               user?._id  ? (
-                <button onClick={handleLogout} className='px-3 py-1 rounded-md font-semibold text-white bg-red-600 hover:bg-red-700'>Logout</button>
+                <button onClick={handleLogout} className="px-2 mx-1 sm:px-3 py-0.5 sm:py-1 rounded-md font-semibold text-white bg-black hover:scale-105 transition text-sm sm:text-base">Logout</button>
               )
               : (
-              <Link to={"/login"} className='px-3.5 py-1 rounded-md font-semibold text-white bg-red-600 hover:bg-red-700'>Login</Link>
+              <Link to={"/login"} className="px-2.5 sm:px-3.5 py-0.5 sm:py-1 rounded-md font-semibold text-white bg-black text-sm sm:text-base">Login</Link>
               )
             }
                     
@@ -169,3 +191,6 @@ const Header = () => {
 };
 
 export default Header;
+
+
+

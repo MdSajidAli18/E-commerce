@@ -248,7 +248,7 @@ const AdminEditProduct = ({
                     ></textarea>
 
 
-                    <button className='px-3 py-2 mb-10 bg-red-600 text-white hover:bg-red-700'>Update Product</button>
+                    <button className='px-3 py-2 mb-10 bg-black text-white hover:scale-105 transition'>Update Product</button>
 
                 </form>
 

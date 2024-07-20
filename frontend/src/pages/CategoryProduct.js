@@ -118,7 +118,7 @@ const CategoryProduct = () => {
 
     return (
 
-        <div className='container mx-auto p-4'>
+        <div className='container mx-auto p-4 scrollbar-none'>
 
             {/** Desktop version */}
             <div className='hidden lg:grid grid-cols-[200px,1fr]'>
@@ -166,7 +166,7 @@ const CategoryProduct = () => {
 
 
                 {/** Right side (display product) */}
-                <div className='px-4'>
+                <div className='px-4 '>
 
                     <p className='font-medium text-slate-800 text-lg my-2'>Search Results : {data.length}</p>
 
@@ -189,3 +189,5 @@ const CategoryProduct = () => {
 }
 
 export default CategoryProduct
+
+

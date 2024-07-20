@@ -10,6 +10,7 @@ import { useEffect, useState } from 'react';
 import Context from './context';
 import { useDispatch } from 'react-redux';
 import { setUserDetails } from './store/userSlice';
+import BackToTop from './components/BackToTop';
 
 function App() {
 
@@ -74,6 +75,8 @@ function App() {
         </main>
 
         <Footer/>
+
+        <BackToTop/>
 
       </Context.Provider>
     </>

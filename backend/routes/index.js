@@ -22,6 +22,7 @@ const updateCartProduct = require('../controller/user/updateCartProduct')
 const deleteCartProduct = require('../controller/user/deleteCartProduct')
 const searchProduct = require('../controller/product/searchProduct')
 const filterProductController = require('../controller/product/filterProduct')
+const addressController = require('../controller/user/userAddress')
 // const paymentController = require('../controller/order/paymentController')
 
 
@@ -56,6 +57,9 @@ router.post("/delete-cart-product", authToken, deleteCartProduct)
 
 // payment and order
 // router.post("/checkout", authToken, paymentController)
+
+//user address and information
+router.post("/address", authToken, addressController )
 
 
 module.exports = router

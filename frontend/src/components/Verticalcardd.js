@@ -51,7 +51,7 @@ const Verticalcardd = ({loading, data=[]}) => {
                         return(
                             <Link to={"/product/"+product?._id} className='w-full min-w-[280px] md:min-w-[300px] max-w-[280px] md:max-w-[300px] bg-white rounded-sm shadow'  onClick={scrollTop}>
 
-                                <div className='bg-slate-200 h-48 p-4 min-w-[280px] md:min-w-[145px] flex justify-center items-center'>
+                                <div className='bg-slate-50 h-48 p-4 min-w-[280px] md:min-w-[145px] flex justify-center items-center'>
                                     <img src={product?.productImage[0]} className='object-scale-down h-full hover:scale-110 transition-all mix-blend-multiply'/>
                                 </div>
 
@@ -68,7 +68,7 @@ const Verticalcardd = ({loading, data=[]}) => {
                                             <p className='ml-1'>Off</p>
                                         </div>
                                     </div>
-                                    <button className='text-sm bg-red-600 hover:bg-red-700 font-semibold text-white px-6 py-2 mx-3 my-3 rounded-md'  onClick={ (e)=>handleAddToCart(e, product?._id) }>Add to Cart</button>
+                                    <button className='text-sm bg-black hover:scale-105 transition font-semibold text-white px-6 py-2 mx-3 my-3 rounded-md'  onClick={ (e)=>handleAddToCart(e, product?._id) }>Add to Cart</button>
                                 </div>
 
                             </Link>

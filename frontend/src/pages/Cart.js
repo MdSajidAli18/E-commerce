@@ -7,6 +7,8 @@ import { FaRegStarHalfStroke } from 'react-icons/fa6'
 import { MdDelete } from "react-icons/md";
 import { BsArrowDown } from "react-icons/bs";
 import yourCartIsEmptyimage from '../assets/yourCartIsEmptyimage.jpg'
+import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
 
 const Cart = () => {
 
@@ -14,6 +16,7 @@ const Cart = () => {
     const [loading, setLoading] = useState(false)
     const context = useContext(Context)
     const loadingCart = new Array(context.cartProductCountt).fill(null)
+    const navigate = useNavigate()
 
     const fetchData = async()=>{
 
@@ -122,24 +125,8 @@ const Cart = () => {
     const totalSellingPrice = data.reduce((prev, curr)=> prev + (curr?.quantity * curr?.productId?.sellingPrice), 0)
 
 
-    const handlePayment = async()=>{
-        // const response = await fetch(SummaryApi.paymentt.url, {
-        //     method: SummaryApi.paymentt.method,
-        //     credentials: 'include',
-        //     headers: {
-        //         "content-type": "application/json"
-        //     },
-        //     body: JSON.stringify({
-        //         cartItems: data
-        //     })
-        // })
-
-        // const responseData = await response.json()
-
-        // console.log("responseDattaa", responseData);
-
-        alert("I will add the payment feature in the future")
-
+    const handlePlaceOrder = async()=>{
+        navigate("/address")
     }
 
 
@@ -283,7 +270,7 @@ const Cart = () => {
                                                 <p className='text-green-700'>You will save {displayINRCurrency(totalPrice - totalSellingPrice)} on this order</p>
                                             </div>
                                             <div className='flex justify-center'>
-                                                <button className='bg-black text-white font-semibold px-6 py-2 flex justify-center items-center mx-20 my-2 rounded-sm hover:bg-black '  onClick={handlePayment}>Payment</button>
+                                                <button className='bg-black text-white font-semibold px-6 py-2 flex justify-center items-center mx-20 my-2 rounded-sm hover:bg-black '  onClick={handlePlaceOrder}>Place order</button>
                                             </div>
                                         </div>
                                     //)

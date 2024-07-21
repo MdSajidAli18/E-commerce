@@ -1,70 +1,59 @@
+
 import React, { useEffect, useState } from 'react'
 
-import image1 from '../assets/assest/banner/img1.webp'
-import image2 from '../assets/assest/banner/img2.webp'
-import image3 from '../assets/assest/banner/img3.jpg'
-import image4 from '../assets/assest/banner/img4.jpg'
-import image5 from '../assets/assest/banner/img5.webp'
+import earbudsBanner from '../assets/assest/banner/earbudsBanner.jpg'
+import neckbandsBanner from '../assets/assest/banner/neckbandsBanner.jpg'
+import headphonesBanner from '../assets/assest/banner/headphonesBanner.jpg'
+import watchBanner from '../assets/assest/banner/watchBanner.jpg'
+import speakersBanner from '../assets/assest/banner/speakersBanner.jpg'
+import speakersBanner2 from '../assets/assest/banner/speakersBanner2.jpg'
 
-import image1Mobile from '../assets/assest/banner/img1_mobile.jpg'
-import image2Mobile from '../assets/assest/banner/img2_mobile.webp'
-import image3Mobile from '../assets/assest/banner/img3_mobile.jpg'
-import image4Mobile from '../assets/assest/banner/img4_mobile.jpg'
-import image5Mobile from '../assets/assest/banner/img5_mobile.png'
+// import earbudsBannerMobile from '../assets/assest/banner/earbudsBannerMobile.jpg'
+// import neckbandsBannerMobile from '../assets/assest/banner/neckbandsBannerMobile.jpg'
+// import headphonesBannerMobile from '../assets/assest/banner/headphonesBannerMobile.jpg'
+// import watchBannerMobile from '../assets/assest/banner/watchBannerMobile.jpg'
+// import speakersBannerMobile from '../assets/assest/banner/speakersBannerMobile.jpg'
+// import speakersBannerMobile2 from '../assets/assest/banner/speakersBannerMobile2.jpg'
 
-import { FaAngleLeft } from "react-icons/fa6";
-import { FaAngleRight } from "react-icons/fa6";
-
-
+import { FaAngleLeft, FaAngleRight } from "react-icons/fa6"
 
 const BannerProduct = () => {
-
     const [currentImage, setCurrentImage] = useState(0)
 
     const desktopImages = [
-        image1,
-        image2,
-        image3,
-        image4,
-        image5
+        earbudsBanner,
+        neckbandsBanner,
+        headphonesBanner,
+        watchBanner,
+        speakersBanner,
+        speakersBanner2
     ]
 
-    const mobileImages = [
-        image1Mobile,
-        image2Mobile,
-        image3Mobile,
-        image4Mobile,
-        image5Mobile
-    ]
+    // const mobileImages = [
+    //     earbudsBannerMobile,
+    //     neckbandsBannerMobile,
+    //     headphonesBannerMobile,
+    //     watchBannerMobile,
+    //     speakersBannerMobile,
+    //     speakersBannerMobile2
+    // ]
 
-    const nextImage = ()=>{
-        if(desktopImages.length-1 > currentImage){
-            setCurrentImage(prev=>prev+1)
-        }
+    const nextImage = () => {
+        setCurrentImage(prev => (prev + 1) % desktopImages.length)
     }
 
-    const prevImage = ()=>{
-        if(currentImage != 0){
-            setCurrentImage(prev=>prev-1)
-        }
+    const prevImage = () => {
+        setCurrentImage(prev => (prev - 1 + desktopImages.length) % desktopImages.length)
     }
 
-    useEffect(()=>{
-        const interval = setInterval(()=>{
-            if(desktopImages.length-1 > currentImage){
-                nextImage()
-            }else{
-                setCurrentImage(0)
-            }
-        }, 3000)
-        return ()=>clearInterval(interval)
-    }, [currentImage])
-
-
+    useEffect(() => {
+        const interval = setInterval(nextImage, 3000)
+        return () => clearInterval(interval)
+    }, [])
 
     return (
         <div className='container mx-auto px-4 rounded bg-white shadow-lg'>
-            <div className='h-56 md:h-72 w-full bg-slate-200 relative'>
+            <div className='relative w-full' style={{ maxHeight: '400px' }}>
 
                 <div className='absolute z-10 h-full w-full md:flex items-center hidden'>
                     <div className='flex justify-between w-full text-2xl'>
@@ -75,34 +64,41 @@ const BannerProduct = () => {
 
                 {/** Desktop and tablet version */}
                 <div className='hidden md:flex w-full h-full overflow-hidden'>
-                    {
-                        desktopImages.map((imageURl, index)=>{
-                            return(
-                                <div className='w-full h-full min-w-full min-h-full transition-all'  key={imageURl}  style={{transform: `translateX(-${currentImage*100}%)`}}>
-                                    <img src={imageURl} className='w-full h-full'/>
-                                </div>
-                            )
-                        })
-                    }
+                    {desktopImages.map((imageURl, index) => (
+                        <div 
+                            className='w-full h-full min-w-full min-h-full transition-transform flex-shrink-0' 
+                            key={index}  
+                            style={{ transform: `translateX(-${currentImage * 100}%)` }}
+                        >
+                            <img 
+                                src={imageURl} 
+                                className="w-full h-full object-contain" 
+                                alt={`Slide ${index + 1}`}
+                            />
+                        </div>
+                    ))}
                 </div>
 
                 {/** Mobile version */}
                 <div className='flex w-full h-full overflow-hidden md:hidden'>
-                    {
-                        mobileImages.map((imageURl, index)=>{
-                            return(
-                                <div className='w-full h-full min-w-full min-h-full transition-all'  key={imageURl}  style={{transform: `translateX(-${currentImage*100}%)`}}>
-                                    <img src={imageURl} className='w-full h-full object-cover'/>
-                                </div>
-                            )
-                        })
-                    }
+                    {desktopImages.map((imageURl, index) => (
+                        <div 
+                            className='w-full h-full min-w-full min-h-full transition-transform flex-shrink-0' 
+                            key={index}  
+                            style={{ transform: `translateX(-${currentImage * 100}%)` }}
+                        >
+                            <img 
+                                src={imageURl} 
+                                className="w-full h-full object-contain" 
+                                alt={`Slide ${index + 1}`}
+                            />
+                        </div>
+                    ))}
                 </div>
 
             </div>
         </div>
     )
-
 }
 
 export default BannerProduct

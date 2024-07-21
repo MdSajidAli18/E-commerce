@@ -46,18 +46,18 @@ const Footer = () => {
 
         {/* Social Media Section */}
         <div className="mt-8 lg:mt-0">
-          <h3 className="font-semibold text-lg lg:text-xl">Follow Us</h3>
+          <h3 className="font-semibold text-lg lg:text-xl">Let's get social</h3>
           <div className="flex space-x-6 mt-2 text-sm lg:text-base">
-            <a href="#" className="hover:underline">
+            <a href="https://www.facebook.com/" className="hover:underline">
               <FontAwesomeIcon icon={faFacebook} size="lg" />
             </a>
-            <a href="#" className="hover:underline">
+            <a href="https://x.com/?lang=en-in" className="hover:underline">
               <FontAwesomeIcon icon={faTwitter} size="lg" />
             </a>
-            <a href="#" className="hover:underline">
+            <a href="https://www.instagram.com/" className="hover:underline">
               <FontAwesomeIcon icon={faInstagram} size="lg" />
             </a>
-            <a href="#" className="hover:underline">
+            <a href="https://in.linkedin.com/" className="hover:underline">
               <FontAwesomeIcon icon={faLinkedin} size="lg" />
             </a>
           </div>

@@ -30,7 +30,7 @@ app.use(cookieParser())
 
 app.use("/api", router)
 
-const PORT = 8080 || Process.env.PORT;
+const PORT = 8080 || process.env.PORT;
 
 connectDB()?.then(()=> {
     app.listen(PORT, () => {

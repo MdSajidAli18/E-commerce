@@ -1,0 +1,18 @@
+node_modules/
+.env
+
+
+
+
+
+
+
+
+
+
+
+
+
+# I have added the file(stripe.js) and folder(order) in .gitignore coz don't want to push on github at this time, but we will push into the future.
+stripe.js
+order
